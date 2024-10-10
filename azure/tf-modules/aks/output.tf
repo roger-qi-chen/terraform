@@ -10,12 +10,8 @@ output "aks_node_rg" {
   value = azurerm_kubernetes_cluster.aks.node_resource_group
 }
 
-# output "p_acr_id" {
-#   value = azurerm_container_registry.acr_product.id
-# }
-
-# output "s_acr_id" {
-#   value = azurerm_container_registry.acr_store.id
+# output "acr_id" {
+#   value = azurerm_container_registry.acr.id
 # }
 
 # output "acr_login_server" {

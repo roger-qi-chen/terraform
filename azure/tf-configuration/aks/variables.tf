@@ -23,13 +23,13 @@ variable "system_node_count" {
   description = "Number of AKS worker nodes"
 }
 
-variable "node_resource_group" {
-  type        = string
-  description = "RG name for cluster resources in Azure"
-}
+# variable "node_resource_group" {
+#   type        = string
+#   description = "RG name for cluster resources in Azure"
+# }
 
 variable "dns_prefix" {
-  type        = string
+  type = string
 }
 
 variable "acr_name" {

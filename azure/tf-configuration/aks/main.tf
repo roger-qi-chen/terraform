@@ -11,10 +11,10 @@ terraform {
 }
 
 provider "azurerm" {
-  subscription_id = ""
-  client_id       = ""
-  client_secret   = ""
-  tenant_id       = ""
+  subscription_id = "" # Azure subscription 1 - Subscription ID
+  client_id       = "" # Micosoft Entra ID - App registrations - New registraion - terraform
+  client_secret   = "" # 
+  tenant_id       = "" # Micosoft Entra ID - App registrations - New registraion - terraform
   features {}
 }
 
@@ -32,7 +32,7 @@ module "my_module" {
   cluster_name        = var.cluster_name
   kubernetes_version  = var.kubernetes_version
   system_node_count   = var.system_node_count
-  node_resource_group = var.node_resource_group
-  dns_prefix          = var.dns_prefix
-  acr_name            = var.acr_name
+  # node_resource_group = var.node_resource_group
+  dns_prefix = var.dns_prefix
+  acr_name   = var.acr_name
 }

@@ -21,7 +21,7 @@ jobs:
                 terraform_version: latest
             
             - name: Run Ansible to Render Terraform Template
-              run: ansible-playbook -i localhost, -e "@azure/bootstrap/vars.yml" zaure/bootstrap/playbook.yml
+              run: ansible-playbook -i localhost, -e "@azure/bootstrap/vars.yml" azure/bootstrap/playbook.yml
             
             - name: Initialize Terraform
               run: |

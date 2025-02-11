@@ -11,10 +11,6 @@ terraform {
 }
 
 provider "azurerm" {
-  subscription_id = "*"
-  client_id       = "*"
-  client_secret   = "*"
-  tenant_id       = "*"
   features {}
 }
 
@@ -38,6 +34,7 @@ module "my_module" {
   admin_password       = var.admin_password
   #   subnet_id              = var.subnet_id
   #   network_security_group = var.network_interface_ids
+  # data.
 }
 
 

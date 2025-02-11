@@ -1,0 +1,10 @@
+- name: Render Terraform template using Ansible
+  hosts: localhost
+  gather_facts: no
+  tasks:
+  - name: Render Terraform template
+    template:
+      src: rg.tf.j2
+      dest: ./rg.tf
+
+# ansible-playbook -i localhost, -e "vars.yml" rg.yml

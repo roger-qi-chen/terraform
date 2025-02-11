@@ -11,10 +11,6 @@ terraform {
 }
 
 provider "azurerm" {
-  subscription_id = "" # Azure subscription 1 - Subscription ID
-  client_id       = "" # Micosoft Entra ID - App registrations - New registraion - terraform
-  client_secret   = "" # 
-  tenant_id       = "" # Micosoft Entra ID - App registrations - New registraion - terraform
   features {}
 }
 

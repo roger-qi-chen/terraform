@@ -5,6 +5,7 @@ on:
     branches:
       - add-template
       - main
+  workflow_dispatch:
 
 jobs:
   render-and-apply:
@@ -22,7 +23,11 @@ jobs:
           terraform_version: latest
       
       - name: Run Ansible to Render Terraform Template
-        run: ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory/envs.ini, -e "@azure/bootstrap/vars/dev.yaml" azure/bootstrap/playbook.yml
+        run: |
+          pwd
+          ls
+          ansible-playbook azure/bootstrap/playbook.yml --syntax-check
+          ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory/envs.ini, -e "@azure/bootstrap/vars/dev.yaml" azure/bootstrap/playbook.yml
       
       - name: Initialize Terraform
         run: |

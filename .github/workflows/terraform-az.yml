@@ -110,10 +110,12 @@
 name: Terraform Azure CI/CD
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  # push:
+  #   branches:
+
+  # pull_request:
+
+  workflow_dispatch:
 
 jobs:
   terraform:

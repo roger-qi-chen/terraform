@@ -1,5 +1,6 @@
 - name: Render Terraform Templates for Different Environments
   hosts: localhost
+  connection: local
   gather_facts: no
   vars:
     env: "{{ lookup('env', 'ENV') | default('dev', true) }}" # Default to 'dev' if ENV is not set

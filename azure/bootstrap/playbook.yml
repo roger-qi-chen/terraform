@@ -21,7 +21,7 @@
     loop: "{{ template_files.files }}"
 
   - name: Debug rendered files
-    command: cat "*-{{ env }}.tf"
+    command: cat "*.tf"
     register: tf_output
     changed_when: false
 

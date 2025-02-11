@@ -17,11 +17,11 @@
   - name: Render Terraform templates
     template:
       src: "{{ item.path }}"
-      dest: "rendered/{{ item.path | basename | regex_replace('.j2$', '') | replace('.tf', env+'-'+'.tf') }}"
+      dest: "{{ item.path | basename | regex_replace('.j2$', '') | regex_replace(r'(\.tf)$', '-' + env + '\\1') }}"
     loop: "{{ template_files.files }}"
 
   - name: Debug rendered files
-    command: cat "rendered/{{ env }}-*.tf"
+    command: cat "*-{{ env }}.tf"
     register: tf_output
     changed_when: false
 

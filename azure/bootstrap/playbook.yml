@@ -21,9 +21,7 @@
     loop: "{{ template_files.files }}"
 
   - name: Debug rendered files
-    command: cat "*.tf"
-    register: tf_output
-    changed_when: false
+    command: "find . -name '*.tf' -exec cat {} \;"
 
   - debug:
       msg: "{{ tf_output.stdout }}"

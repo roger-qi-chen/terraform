@@ -17,7 +17,7 @@
   - name: Render Terraform templates
     template:
       src: "{{ item.path }}"
-      dest: "{{ item.path | basename | regex_replace('.j2$', '') | regex_replace(r'(\\.tf)$', '-' ~ env ~ '\\1') }}"
+      dest: "{{ item.path | basename | regex_replace('.j2$', '.tf') }}"
     loop: "{{ template_files.files }}"
 
   - name: Debug rendered files

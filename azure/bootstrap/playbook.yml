@@ -10,7 +10,7 @@
 
   - name: Find all Terraform template files
     find:
-      paths: "./"
+      paths: "{{ playbook_dir }}"
       patterns: "*.tf.j2"
     register: template_files
 

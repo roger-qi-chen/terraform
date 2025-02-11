@@ -1,54 +1,55 @@
 name: Dev Bootstrap Terraform
 
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - add-template
+      - main
 
 jobs:
-    render-and-apply:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout Repository
-              uses: actions/checkout@v4
+  render-and-apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-            - name: Install Ansible
-              run: sudo apt-get update && sudo apt-get install -y ansible
-            
-            - name: Install Terraform
-              uses: hashicorp/setup-terraform@v2
-              with:
-                terraform_version: latest
-            
-            - name: Run Ansible to Render Terraform Template
-              run: ansible-playbook -i localhost, -e "@azure/bootstrap/vars.yml" zaure/bootstrap/playbook.yml
-            
-            - name: Initialize Terraform
-              run: |
-                cd azure/bootstrap
-                terraform init
-              env:
-                  ARM_CLIENT_ID: ${{ secrets.DEV_AZURE_CLIENT_ID }}
-                  ARM_CLIENT_SECRET: ${{ secrets.DEV_AZURE_CLIENT_SECRET }}
-                  ARM_SUBSCRIPTION_ID: ${{ secrets.DEV_AZURE_SUBSCRIPTION_ID }}
-                  ARM_TENANT_ID: ${{ secrets.DEV_AZURE_TENANT_ID }}
-            
-            - name: Plan Terraform
-              run: |
-                cd azure/bootstrap
-                terraform plan
-              env:
-                ARM_CLIENT_ID: ${{ secrets.DEV_AZURE_CLIENT_ID }}
-                ARM_CLIENT_SECRET: ${{ secrets.DEV_AZURE_CLIENT_SECRET }}
-                ARM_SUBSCRIPTION_ID: ${{ secrets.DEV_AZURE_SUBSCRIPTION_ID }}
-                ARM_TENANT_ID: ${{ secrets.DEV_AZURE_TENANT_ID }}
+      - name: Install Ansible
+        run: sudo apt-get update && sudo apt-get install -y ansible
+      
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: latest
+      
+      - name: Run Ansible to Render Terraform Template
+        run: ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory/envs.ini, -e "@azure/bootstrap/vars/dev.yaml" azure/bootstrap/playbook.yml
+      
+      - name: Initialize Terraform
+        run: |
+          cd azure/bootstrap
+          terraform init
+        env:
+            ARM_CLIENT_ID: ${{ secrets.DEV_AZURE_CLIENT_ID }}
+            ARM_CLIENT_SECRET: ${{ secrets.DEV_AZURE_CLIENT_SECRET }}
+            ARM_SUBSCRIPTION_ID: ${{ secrets.DEV_AZURE_SUBSCRIPTION_ID }}
+            ARM_TENANT_ID: ${{ secrets.DEV_AZURE_TENANT_ID }}
+      
+      - name: Plan Terraform
+        run: |
+          cd azure/bootstrap
+          terraform plan
+        env:
+          ARM_CLIENT_ID: ${{ secrets.DEV_AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.DEV_AZURE_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.DEV_AZURE_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.DEV_AZURE_TENANT_ID }}
 
-            - name: Apply Terraform
-              run: |
-                  cd azure/bootstrap
-                  terraform apply -auto-approve
-              env:
-                  ARM_CLIENT_ID: ${{ secrets.DEV_AZURE_CLIENT_ID }}
-                  ARM_CLIENT_SECRET: ${{ secrets.DEV_AZURE_CLIENT_SECRET }}
-                  ARM_SUBSCRIPTION_ID: ${{ secrets.DEV_AZURE_SUBSCRIPTION_ID }}
-                  ARM_TENANT_ID: ${{ secrets.DEV_AZURE_TENANT_ID }}
+      - name: Apply Terraform
+        run: |
+            cd azure/bootstrap
+            terraform apply -auto-approve
+        env:
+            ARM_CLIENT_ID: ${{ secrets.DEV_AZURE_CLIENT_ID }}
+            ARM_CLIENT_SECRET: ${{ secrets.DEV_AZURE_CLIENT_SECRET }}
+            ARM_SUBSCRIPTION_ID: ${{ secrets.DEV_AZURE_SUBSCRIPTION_ID }}
+            ARM_TENANT_ID: ${{ secrets.DEV_AZURE_TENANT_ID }}

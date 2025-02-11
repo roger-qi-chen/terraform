@@ -1,107 +1,109 @@
-# name: Terraform Azure CI/CD
+name: Terraform Azure CI/CD
 
-# on:
-#   push:
-#     branches:
-#       - main
-#   pull_request:
+on:
+  push:
+    branches:
 
-# jobs:
-#   terraform:
-#     name: 'Terraform for Azure'
-#     runs-on: ubuntu-latest
+  pull_request:
 
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v4
+  workflow_dispatch:
 
-#       - name: Setup Terraform
-#         uses: hashicorp/setup-terraform@v3
-#         with:
-#           terraform_version: 1.10.5
+jobs:
+  terraform:
+    name: 'Terraform for Azure'
+    runs-on: ubuntu-latest
 
-#       # === Terraform for 1rg ===
-#       - name: Terraform Init (1rg)
-#         working-directory: ./azure/tf-configuration/1rg
-#         run: terraform init -backend-config="resource_group_name=terraform-state-rg" \
-#                             -backend-config="storage_account_name=your-storage-account-name" \
-#                             -backend-config="container_name=terraform-state" \
-#                             -backend-config="key=1rg.terraform.tfstate"
-#         env:
-#           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-#           ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-#           ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-#           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-#       - name: Terraform Format Check (1rg)
-#         working-directory: ./azure/tf-configuration/1rg
-#         run: terraform fmt -check
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.10.5
 
-#       - name: Terraform Validate (1rg)
-#         working-directory: ./azure/tf-configuration/1rg
-#         run: terraform validate
+      # === Terraform for 1rg ===
+      - name: Terraform Init (1rg)
+        working-directory: ./azure/tf-configuration/1rg
+        run: terraform init -backend-config="resource_group_name=terraform-state-rg" \
+                            -backend-config="storage_account_name=your-storage-account-name" \
+                            -backend-config="container_name=terraform-state" \
+                            -backend-config="key=1rg.terraform.tfstate"
+        env:
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
-#       - name: Terraform Plan (1rg)
-#         working-directory: ./azure/tf-configuration/1rg
-#         run: terraform plan -out=tfplan
-#         env:
-#           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-#           ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-#           ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-#           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      - name: Terraform Format Check (1rg)
+        working-directory: ./azure/tf-configuration/1rg
+        run: terraform fmt -check
 
-#       - name: Terraform Apply (1rg) - Main Branch Only
-#         if: github.ref == 'refs/heads/main'
-#         working-directory: ./azure/tf-configuration/1rg
-#         run: terraform apply -auto-approve tfplan
-#              RESOURCE_GROUP=$(terraform output -raw resource_group_name)
-#              echo "RESOURCE_GROUP=$RESOURCE_GROUP" >> $GITHUB_ENV
-#         env:
-#           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-#           ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-#           ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-#           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      - name: Terraform Validate (1rg)
+        working-directory: ./azure/tf-configuration/1rg
+        run: terraform validate
 
-#       # === Terraform for 2vnet ===
-#       - name: Terraform Init (2vnet)
-#         working-directory: ./azure/tf-configuration/2vnet
-#         run: terraform init -backend-config="resource_group_name=terraform-state-rg" \
-#                             -backend-config="storage_account_name=your-storage-account-name" \
-#                             -backend-config="container_name=terraform-state" \
-#                             -backend-config="key=2vnet.terraform.tfstate"
-#         env:
-#           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-#           ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-#           ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-#           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      - name: Terraform Plan (1rg)
+        working-directory: ./azure/tf-configuration/1rg
+        run: terraform plan -out=tfplan
+        env:
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
-#       - name: Terraform Format Check (2vnet)
-#         working-directory: ./azure/tf-configuration/2vnet
-#         run: terraform fmt -check
+      - name: Terraform Apply (1rg) - Main Branch Only
+        if: github.ref == 'refs/heads/main'
+        working-directory: ./azure/tf-configuration/1rg
+        run: terraform apply -auto-approve tfplan
+             RESOURCE_GROUP=$(terraform output -raw resource_group_name)
+             echo "RESOURCE_GROUP=$RESOURCE_GROUP" >> $GITHUB_ENV
+        env:
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
-#       - name: Terraform Validate (2vnet)
-#         working-directory: ./azure/tf-configuration/2vnet
-#         run: terraform validate
+      # === Terraform for 2vnet ===
+      - name: Terraform Init (2vnet)
+        working-directory: ./azure/tf-configuration/2vnet
+        run: terraform init -backend-config="resource_group_name=terraform-state-rg" \
+                            -backend-config="storage_account_name=your-storage-account-name" \
+                            -backend-config="container_name=terraform-state" \
+                            -backend-config="key=2vnet.terraform.tfstate"
+        env:
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
-#       - name: Terraform Plan (2vnet)
-#         working-directory: ./azure/tf-configuration/2vnet
-#         run: terraform plan -out=tfplan
-#         env:
-#           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-#           ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-#           ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-#           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      - name: Terraform Format Check (2vnet)
+        working-directory: ./azure/tf-configuration/2vnet
+        run: terraform fmt -check
 
-#       - name: Terraform Apply (2vnet) - Main Branch Only
-#         if: github.ref == 'refs/heads/main'
-#         working-directory: ./azure/tf-configuration/2vnet
-#         run: terraform apply -auto-approve tfplan -var="resource_group_name=${{ env.RESOURCE_GROUP }}"
-#         env:
-#           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-#           ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-#           ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-#           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      - name: Terraform Validate (2vnet)
+        working-directory: ./azure/tf-configuration/2vnet
+        run: terraform validate
 
-#       # === Terraform for 3vm ===
+      - name: Terraform Plan (2vnet)
+        working-directory: ./azure/tf-configuration/2vnet
+        run: terraform plan -out=tfplan
+        env:
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
-#       # === Terraform for 4db ===
+      - name: Terraform Apply (2vnet) - Main Branch Only
+        if: github.ref == 'refs/heads/main'
+        working-directory: ./azure/tf-configuration/2vnet
+        run: terraform apply -auto-approve tfplan -var="resource_group_name=${{ env.RESOURCE_GROUP }}"
+        env:
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+
+      # === Terraform for 3vm ===
+
+      # === Terraform for 4db ===

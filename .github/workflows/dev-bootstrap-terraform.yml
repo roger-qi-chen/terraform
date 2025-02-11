@@ -5,6 +5,7 @@ on:
     branches:
       - add-template
       - main
+  workflow_dispatch:
 
 jobs:
   render-and-apply:

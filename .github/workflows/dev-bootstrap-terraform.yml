@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - add-template
-      # - main
+      - main
 
 jobs:
   render-and-apply:

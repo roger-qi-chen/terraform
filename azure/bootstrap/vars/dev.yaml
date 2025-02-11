@@ -3,3 +3,7 @@ env: "dev"
 # rg
 resource_group_name: "resource-group"
 location: "Australia Central"
+
+# storage
+storage_account_name: "storage"
+storage_container_name: "container"

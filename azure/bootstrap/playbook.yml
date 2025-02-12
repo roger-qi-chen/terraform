@@ -22,6 +22,3 @@
 
   - name: Debug rendered files
     command: "find . -name '*.tf' -exec cat {} \\;"
-
-  - debug:
-      msg: "{{ tf_output.stdout }}"

@@ -1,8 +1,20 @@
+# Configure the Azure provider
 terraform {
   backend "azurerm" {
     resource_group_name  = "{{ resource_group_name }}"
-    storage_account_name = "mystorageaccount"
-    container_name       = "tfstate"
-    key                  = "terraform.tfstate"
+    storage_account_name = "{{ storage_account_name }}"
+    container_name       = "{{ storage_container_name }}"
+    key                  = "{{ key }}"
   }
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 4.17.0"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "~>3.6.3"
+    }
+  }
+  required_version = "~> 1.10.5"
 }

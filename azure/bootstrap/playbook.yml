@@ -21,4 +21,4 @@
     loop: "{{ template_files.files }}"
 
   - name: Debug rendered files
-    command: "find . -name '*.tf' -exec cat {} \\;"
+    command: cat "rendered/*-{{ env }}.tf"

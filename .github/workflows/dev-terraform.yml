@@ -1,6 +1,9 @@
-name: Dev Bootstrap Terraform
+name: Dev Terraform
 
 on:
+  push:
+    branches:
+      - add-template
   workflow_dispatch:
 
 jobs:

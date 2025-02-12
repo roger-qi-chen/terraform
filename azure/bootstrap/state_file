@@ -1,12 +1,12 @@
-RESOURCE_GROUP_NAME="terraform-state-rg"
-STORAGE_ACCOUNT_NAME="tfstate$(date +%s)" # Must be globally unique
-CONTAINER_NAME="terraform-state"
+RESOURCE_GROUP_NAME="dev-resource-group"
+STORAGE_ACCOUNT_NAME="devmyappstorage" # Must be globally unique
+CONTAINER_NAME="dev-terraform-state-file"
 
 # Create resource group
-az group create --name $RESOURCE_GROUP_NAME --location eastus
+az group create --name $RESOURCE_GROUP_NAME --location australiacentral
 
 # Create storage account
-az storage account create --name $STORAGE_ACCOUNT_NAME --resource-group $RESOURCE_GROUP_NAME --location eastus --sku Standard_LRS
+az storage account create --name $STORAGE_ACCOUNT_NAME --resource-group $RESOURCE_GROUP_NAME --location australiacentral --sku Standard_LRS
 
 # Get storage account key
 ACCOUNT_KEY=$(az storage account keys list --resource-group $RESOURCE_GROUP_NAME --account-name $STORAGE_ACCOUNT_NAME --query '[0].value' -o tsv)

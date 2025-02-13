@@ -27,7 +27,7 @@ jobs:
           ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i azure/template/inventory/envs.ini, -e "@azure/template/vars/dev.yaml" azure/template/playbook.yml
       
       - name: Initialize Terraform
-        working-directory: ../../azure/template/templates
+        working-directory: ./azure/template/templates
         run: |
           terraform init \
             -backend-config="resource_group_name=dev-resource-group" \

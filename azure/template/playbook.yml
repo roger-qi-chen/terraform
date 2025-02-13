@@ -21,4 +21,9 @@
     loop: "{{ template_files.files }}"
 
   - name: Debug rendered files
-    command: cat "rendered/*-{{ env }}.tf"
+    command: find "{{ playbook_dir }}" -name "*.tf"
+    register: rendered_tf_files
+
+  - name: Show rendered .tf files
+    debug:
+      msg: "{{ rendered_tf_files.stdout_lines }}"

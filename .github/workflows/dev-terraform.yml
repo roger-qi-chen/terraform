@@ -24,7 +24,7 @@ jobs:
       - name: Run Ansible to Render Terraform Template
         run: |
           ansible-playbook azure/template/playbook.yml --syntax-check
-          ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i azure/template/inventory/envs.ini, -e "@azure/template/templates/vars/dev.yaml" azure/template/templates/playbook.yml
+          ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i azure/template/inventory/envs.ini, -e "@azure/template/vars/dev.yaml" azure/template/playbook.yml
       
       - name: Initialize Terraform
         working-directory: ./azure/template/templates

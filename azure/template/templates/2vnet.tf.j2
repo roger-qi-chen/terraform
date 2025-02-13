@@ -1,6 +1,6 @@
 resource "azurerm_virtual_network" "vnet" {
-  name                = "{{ vnet_name }}"
+  name                = "{{ env }}-{{ vnet_name }}"
   location            = "{{ location }}"
   resource_group_name = data.azurerm_resource_group.rg.name
-  address_space       = {{ vnet_address_space | to_json }}
+  address_space       = {{ address_space | to_json }}
 }

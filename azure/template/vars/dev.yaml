@@ -8,3 +8,8 @@ location: "Australia Central"
 storage_account_name: "myappstorage"
 storage_container_name: "terraform-state-file"
 key: "terraform.tfstate"
+
+# vnet
+vnet_name: "vnet"
+address_space:
+- "10.0.0.0/16"

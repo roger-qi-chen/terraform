@@ -27,11 +27,13 @@ jobs:
           ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i azure/template/inventory/envs.ini, -e "@azure/template/vars/dev.yaml" azure/template/playbook.yml
       
       - name: Initialize Terraform
-        working-directory: ./azure/template/templates
-        run: terraform init -backend-config="resource_group_name=dev-resource-group" \
-                            -backend-config="storage_account_name=devmyappstorage" \
-                            -backend-config="container_name=dev-terraform-state-file" \
-                            -backend-config="key=terraform.tfstate"
+        working-directory: ../../azure/template/templates
+        run: |
+          terraform init \
+            -backend-config="resource_group_name=dev-resource-group" \
+            -backend-config="storage_account_name=devmyappstorage" \
+            -backend-config="container_name=dev-terraform-state-file" \
+            -backend-config="key=terraform.tfstate"
         env:
             ARM_CLIENT_ID: ${{ secrets.DEV_AZURE_CLIENT_ID }}
             ARM_CLIENT_SECRET: ${{ secrets.DEV_AZURE_CLIENT_SECRET }}

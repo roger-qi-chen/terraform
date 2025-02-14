@@ -24,6 +24,7 @@ jobs:
       - name: Run Ansible to Render Terraform Template
         run: |
           ansible-playbook azure/template/playbook.yml --syntax-check
+
           ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i azure/template/inventory/envs.ini, -e "@azure/template/vars/dev.yaml" azure/template/playbook.yml
       
       - name: Initialize Terraform
@@ -53,8 +54,6 @@ jobs:
       - name: Plan Terraform
         working-directory: ./azure/template/templates
         run: |
-          pwd
-          ls
           terraform plan -out=tfplan
         env:
           ARM_CLIENT_ID: ${{ secrets.DEV_AZURE_CLIENT_ID }}

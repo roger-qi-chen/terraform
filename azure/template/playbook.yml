@@ -1,8 +1,8 @@
 - name: Render Terraform Templates for Different Environments
-  hosts: localhost
+  hosts: all
+  connection: local
   gather_facts: no
-  vars:
-    env: "{{ lookup('env', 'ENV') | default('dev', true) }}" # Default to 'dev' if ENV is not set
+
   tasks:
   - name: Load environment-specific variables
     include_vars:
@@ -10,20 +10,20 @@
 
   - name: Find all Terraform template files
     find:
-      paths: "templates/"
+      paths: "{{ playbook_dir }}/templates"
       patterns: "*.tf.j2"
     register: template_files
 
   - name: Render Terraform templates
     template:
       src: "{{ item.path }}"
-      dest: "rendered/{{ item.path | basename | regex_replace('.j2$', '') | replace('.tf', '-'+env+'.tf') }}"
+      dest: "{{ item.path | regex_replace('\\.tf\\.j2$', '.tf') }}"
     loop: "{{ template_files.files }}"
 
   - name: Debug rendered files
-    command: cat "rendered/*-{{ env }}.tf"
-    register: tf_output
-    changed_when: false
+    command: find "{{ playbook_dir }}" -name "*.tf"
+    register: rendered_tf_files
 
-  - debug:
-      msg: "{{ tf_output.stdout }}"
+  - name: Show rendered .tf files
+    debug:
+      msg: "{{ rendered_tf_files.stdout_lines }}"

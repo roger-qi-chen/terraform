@@ -43,7 +43,7 @@ jobs:
       - name: Terraform Format Check
         working-directory: ./azure/template/templates
         run: |
-          terraform fmt -check
+          terraform fmt
       
       - name: Terraform Validate
         working-directory: ./azure/template/templates

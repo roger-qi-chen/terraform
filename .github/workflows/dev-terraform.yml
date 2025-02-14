@@ -53,8 +53,11 @@ jobs:
       - name: Plan Terraform
         working-directory: ./azure/template/templates
         run: |
+<<<<<<< HEAD
           pwd
           ls
+=======
+>>>>>>> main
           terraform plan -out=tfplan
         env:
           ARM_CLIENT_ID: ${{ secrets.DEV_AZURE_CLIENT_ID }}

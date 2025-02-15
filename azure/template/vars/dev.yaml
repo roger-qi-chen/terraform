@@ -1,15 +1,37 @@
 env: "dev"
 
-# rg
+# Resource group
 resource_group_name: "dev-resource-group"
 location: "Australia Central"
 
-# storage
+# Storage
 storage_account_name: "myappstorage"
 storage_container_name: "terraform-state-file"
 key: "terraform.tfstate"
 
-# vnet
+# Virtual network
 vnet_name: "vnet"
 address_space:
 - "10.0.0.0/16"
+
+# Private subnets
+private_subnet1_name: "private-subnet1"
+private_subnet2_name: "private-subnet2"
+private_subnet3_name: "private-subnet3"
+pri1_address_prefixes:
+- "10.0.1.0/24"
+pri2_address_prefixes:
+- "10.0.2.0/24"
+pri3_address_prefixes:
+- "10.0.3.0/24"
+
+# Public subnets
+public_subnet1_name: "private-subnet1"
+public_subnet2_name: "private-subnet2"
+public_subnet3_name: "private-subnet3"
+pub1_address_prefixes:
+- "10.0.11.0/24"
+pub2_address_prefixes:
+- "10.0.12.0/24"
+pub3_address_prefixes:
+- "10.0.13.0/24"

@@ -1,0 +1,63 @@
+# Private subnets
+resource "azurerm_subnet" "pri1" {
+  name                 = "{{ env }}-{{ private_subnet1_name }}"
+  resource_group_name  = data.azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = {{ pri1_address_prefixes | to_json }}
+
+  delegation {
+    name = "{{ env }}-pri1-delegation"
+
+    service_delegation {
+      name    = "Microsoft.ContainerInstance/containerGroups"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
+    }
+  }
+}
+
+resource "azurerm_subnet" "pri2" {
+  name                 = "{{ env }}-{{ private_subnet2_name }}"
+  resource_group_name  = data.azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = {{ pri2_address_prefixes | to_json }}
+
+  delegation {
+    name = "{{ env }}-pri2-delegation"
+
+    service_delegation {
+      name    = "Microsoft.ContainerInstance/containerGroups"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
+    }
+  }
+}
+
+resource "azurerm_subnet" "pri3" {
+  name                 = "{{ env }}-{{ private_subnet3_name }}"
+  resource_group_name  = data.azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = {{ pri3_address_prefixes | to_json }}
+
+  delegation {
+    name = "{{ env }}-pri3-delegation"
+
+    service_delegation {
+      name    = "Microsoft.ContainerInstance/containerGroups"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
+    }
+  }
+}
+
+resource "azurerm_subnet_nat_gateway_association" "ngw_association_pri1" {
+  subnet_id      = azurerm_subnet.pri1.id
+  nat_gateway_id = azurerm_nat_gateway.ngw.id
+}
+
+resource "azurerm_subnet_nat_gateway_association" "ngw_association_pri2" {
+  subnet_id      = azurerm_subnet.pri2.id
+  nat_gateway_id = azurerm_nat_gateway.ngw.id
+}
+
+resource "azurerm_subnet_nat_gateway_association" "ngw_association_pri3" {
+  subnet_id      = azurerm_subnet.pri3.id
+  nat_gateway_id = azurerm_nat_gateway.ngw.id
+}

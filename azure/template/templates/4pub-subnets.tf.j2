@@ -49,15 +49,15 @@ resource "azurerm_subnet" "pub3" {
 
 resource "azurerm_subnet_nat_gateway_association" "ngw_association_pub1" {
   subnet_id      = azurerm_subnet.pub1.id
-  nat_gateway_id = azurerm_nat_gateway.example.id
+  nat_gateway_id = azurerm_nat_gateway.ngw.id
 }
 
 resource "azurerm_subnet_nat_gateway_association" "ngw_association_pub2" {
   subnet_id      = azurerm_subnet.pub2.id
-  nat_gateway_id = azurerm_nat_gateway.example.id
+  nat_gateway_id = azurerm_nat_gateway.ngw.id
 }
 
 resource "azurerm_subnet_nat_gateway_association" "ngw_association_pub3" {
   subnet_id      = azurerm_subnet.pub3.id
-  nat_gateway_id = azurerm_nat_gateway.example.id
+  nat_gateway_id = azurerm_nat_gateway.ngw.id
 }

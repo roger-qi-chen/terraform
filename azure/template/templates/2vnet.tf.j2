@@ -4,3 +4,9 @@ resource "azurerm_virtual_network" "vnet" {
   resource_group_name = data.azurerm_resource_group.rg.name
   address_space       = {{ address_space | to_json }}
 }
+
+resource "azurerm_nat_gateway" "ngw" {
+  name                = "{{ env }}-ngw"
+  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = data.azurerm_resource_group.rg.name
+}

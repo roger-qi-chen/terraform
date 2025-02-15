@@ -47,12 +47,6 @@ resource "azurerm_subnet" "pri3" {
   }
 }
 
-resource "azurerm_nat_gateway" "ngw" {
-  name                = "{{ env }}-ngw"
-  location            = data.azurerm_resource_group.rg.location
-  resource_group_name = data.azurerm_resource_group.rg.name
-}
-
 resource "azurerm_subnet_nat_gateway_association" "ngw_association_pri1" {
   subnet_id      = azurerm_subnet.pri1.id
   nat_gateway_id = azurerm_nat_gateway.ngw.id

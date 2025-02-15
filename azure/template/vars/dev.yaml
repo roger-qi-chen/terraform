@@ -18,20 +18,31 @@ address_space:
 private_subnet1_name: "private-subnet1"
 private_subnet2_name: "private-subnet2"
 private_subnet3_name: "private-subnet3"
+bastion_subnet_name: "bastion-subnet"
+db_subnet_name: "db-subnet"
+
 pri1_address_prefixes:
 - "10.0.1.0/24"
 pri2_address_prefixes:
 - "10.0.2.0/24"
 pri3_address_prefixes:
 - "10.0.3.0/24"
+bastion_address_prefixes:
+- "10.0.4.0/24"
+db_address_prefixes:
+- "10.0.5.0/24"
 
 # Public subnets
 public_subnet1_name: "public-subnet1"
 public_subnet2_name: "public-subnet2"
 public_subnet3_name: "public-subnet3"
+gateway_subnet_name: "gateway-subnet"
+
 pub1_address_prefixes:
 - "10.0.11.0/24"
 pub2_address_prefixes:
 - "10.0.12.0/24"
 pub3_address_prefixes:
 - "10.0.13.0/24"
+gateway_address_prefixes:
+- "10.0.15.0/24"

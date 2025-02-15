@@ -1,0 +1,21 @@
+# Gateway subnet - Zone redundant
+resource "azurerm_subnet" "gtw_subnet" {
+  name                 = "{{ env }}-{{ gtw_subnet_name }}"
+  resource_group_name  = data.azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = {{ gtw_address_prefixes | to_json }}
+
+  delegation {
+    name = "{{ env }}-gtw-delegation"
+
+    service_delegation {
+      name    = "Microsoft.ContainerInstance/containerGroups"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
+    }
+  }
+}
+
+resource "azurerm_subnet_nat_gateway_association" "ngw_association_gtw" {
+  subnet_id      = azurerm_subnet.gtw_subnet.id
+  nat_gateway_id = azurerm_nat_gateway.ngw.id
+}

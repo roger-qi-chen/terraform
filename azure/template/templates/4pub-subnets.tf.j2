@@ -1,0 +1,63 @@
+# Public subnets
+resource "azurerm_subnet" "pub1" {
+  name                 = "{{ env }}-{{ public_subnet1_name }}"
+  resource_group_name  = data.azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = {{ pub1_address_prefixes | to_json }}
+
+  delegation {
+    name = "{{ env }}-pub1-delegation"
+
+    service_delegation {
+      name    = "Microsoft.ContainerInstance/containerGroups"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
+    }
+  }
+}
+
+resource "azurerm_subnet" "pub2" {
+  name                 = "{{ env }}-{{ public_subnet2_name }}"
+  resource_group_name  = data.azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = {{ pub2_address_prefixes | to_json }}
+
+  delegation {
+    name = "{{ env }}-pub2-delegation"
+
+    service_delegation {
+      name    = "Microsoft.ContainerInstance/containerGroups"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
+    }
+  }
+}
+
+resource "azurerm_subnet" "pub3" {
+  name                 = "{{ env }}-{{ public_subnet3_name }}"
+  resource_group_name  = data.azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = {{ pub3_address_prefixes | to_json }}
+
+  delegation {
+    name = "{{ env }}-pub3-delegation"
+
+    service_delegation {
+      name    = "Microsoft.ContainerInstance/containerGroups"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
+    }
+  }
+}
+
+resource "azurerm_subnet_nat_gateway_association" "ngw_association_pub1" {
+  subnet_id      = azurerm_subnet.pub1.id
+  nat_gateway_id = azurerm_nat_gateway.example.id
+}
+
+resource "azurerm_subnet_nat_gateway_association" "ngw_association_pub2" {
+  subnet_id      = azurerm_subnet.pub2.id
+  nat_gateway_id = azurerm_nat_gateway.example.id
+}
+
+resource "azurerm_subnet_nat_gateway_association" "ngw_association_pub3" {
+  subnet_id      = azurerm_subnet.pub3.id
+  nat_gateway_id = azurerm_nat_gateway.example.id
+}

@@ -26,9 +26,9 @@ pri3_address_prefixes:
 - "10.0.3.0/24"
 
 # Public subnets
-public_subnet1_name: "private-subnet1"
-public_subnet2_name: "private-subnet2"
-public_subnet3_name: "private-subnet3"
+public_subnet1_name: "public-subnet1"
+public_subnet2_name: "public-subnet2"
+public_subnet3_name: "public-subnet3"
 pub1_address_prefixes:
 - "10.0.11.0/24"
 pub2_address_prefixes:

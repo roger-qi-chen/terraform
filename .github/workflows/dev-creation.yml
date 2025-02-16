@@ -61,7 +61,7 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.DEV_AZURE_TENANT_ID }}
 
       - name: Apply Terraform
-        if: github.ref == 'refs/heads/main'
+        # if: github.ref == 'refs/heads/main'
         working-directory: ./azure/template/templates
         run: |
           terraform apply -auto-approve tfplan

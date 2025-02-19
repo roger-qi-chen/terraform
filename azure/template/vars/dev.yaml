@@ -44,5 +44,7 @@ pub2_address_prefixes:
 - "10.0.12.0/24"
 pub3_address_prefixes:
 - "10.0.13.0/24"
+azure_firewall_address_prefixes:
+- "10.0.14.0/24"
 gateway_address_prefixes:
 - "10.0.15.0/24"

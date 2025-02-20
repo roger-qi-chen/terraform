@@ -29,6 +29,13 @@ steps:
     ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i azure/template/inventory/envs.ini, -e "@azure/template/vars/dev.yaml" azure/template/playbook.yml
   displayName: 'Run Ansible Playbook'
 
+- task: AzureKeyVault@2
+  inputs:
+    azureSubscription: '<Your-Service-Connection-Name>'
+    KeyVaultName: '<Your-KeyVault-Name>'
+    SecretsFilter: '*'
+    RunAsPreJob: false
+
 # Run Terraform commands
 - script: |
     export ARM_CLIENT_ID=$(ARM_CLIENT_ID)

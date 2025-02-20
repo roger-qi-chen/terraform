@@ -1,12 +1,12 @@
-{# # Bastion subnet - Zone redundant
-resource "azurerm_subnet" "bastion_subnet" {
-  name                 = "{{ env }}-{{ bastion_subnet_name }}"
+{# # Public subnets
+resource "azurerm_subnet" "pub1" {
+  name                 = "{{ env }}-{{ public_subnet1_name }}"
   resource_group_name  = data.azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = {{ bastion_address_prefixes | to_json }}
+  address_prefixes     = {{ pub1_address_prefixes | to_json }}
 
   delegation {
-    name = "{{ env }}-bastion-delegation"
+    name = "{{ env }}-pub1-delegation"
 
     service_delegation {
       name    = "Microsoft.ContainerInstance/containerGroups"
@@ -15,7 +15,7 @@ resource "azurerm_subnet" "bastion_subnet" {
   }
 }
 
-resource "azurerm_subnet_nat_gateway_association" "ngw_association_bastion" {
-  subnet_id      = azurerm_subnet.bastion_subnet.id
+resource "azurerm_subnet_nat_gateway_association" "ngw_association_pub1" {
+  subnet_id      = azurerm_subnet.pub1.id
   nat_gateway_id = azurerm_nat_gateway.ngw.id
 } #}

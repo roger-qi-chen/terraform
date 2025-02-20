@@ -1,4 +1,4 @@
-resource "azurerm_application_gateway" "network" {
+{# resource "azurerm_application_gateway" "network" {
   name                = "example-appgateway"
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
@@ -52,4 +52,4 @@ resource "azurerm_application_gateway" "network" {
     backend_address_pool_name  = local.backend_address_pool_name
     backend_http_settings_name = local.http_setting_name
   }
-}
+} #}

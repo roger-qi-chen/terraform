@@ -22,12 +22,12 @@ address_space:
 - "10.1.0.0/16"
 
 # Auzre Firewall subnet
-afw_subnet: "afw-subnet"
+afw_subnet_name: "afw-subnet"
 afw_address_prefixes:
 - "10.0.0.0/24"
 
 # Application Gateway subnet
-agw_subnet: "agw-subnet"
+agw_subnet_name: "agw-subnet"
 agw_address_prefixes:
 - "10.0.1.0/24"
 

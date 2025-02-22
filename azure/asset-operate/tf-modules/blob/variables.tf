@@ -8,7 +8,7 @@ variable "resource_group_name" {
 }
 
 # Storage Account
-variable "storage_account_name" {
+variable "storage_account_id" {
   type = string
 }
 

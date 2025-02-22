@@ -13,5 +13,5 @@ variable "virtual_network_name" {
 }
 
 variable "address_space" {
-  type = string
+  type = list(string)
 }

@@ -24,8 +24,8 @@ provider "azurerm" {
 module "vnet" {
   source = "../tf-modules/vnet" # source = "git@github.com:terraform.git/AssetOperate-IaaC/azure/tf-modules/vnet"
   
-  resource_group_name     = data.resourcazurerm_resource_group.rg.name
-  resource_group_location = data.resourcazurerm_resource_group.rg.location
+  resource_group_name     = data.azurerm_resource_group.rg.name
+  resource_group_location = data.azurerm_resource_group.rg.location
 
   env                  = var.env
   virtual_network_name = var.virtual_network_name

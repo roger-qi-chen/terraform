@@ -43,6 +43,8 @@ module "blob_container" {
   resource_group_name     = data.azurerm_resource_group.rg.name
   resource_group_location = data.azurerm_resource_group.rg.location
 
-  env                  = var.env
-  storage_account_name = var.storage_account_name
+  env                   = var.env
+  storage_account_name  = var.storage_account_name
+  blob_container_name   = var.blob_container_name
+  container_access_type = var.container_access_type
 }

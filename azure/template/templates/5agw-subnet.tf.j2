@@ -1,9 +1,9 @@
 # Gateway subnet - Zone redundant
-resource "azurerm_subnet" "gtw_subnet" {
+resource "azurerm_subnet" "agw_subnet" {
   name                 = "{{ env }}-{{ gateway_subnet_name }}"
   resource_group_name  = data.azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = {{ gtw_address_prefixes | to_json }}
+  address_prefixes     = {{ gateway_address_prefixes | to_json }}
 
   delegation {
     name = "{{ env }}-gtw-delegation"
@@ -15,7 +15,7 @@ resource "azurerm_subnet" "gtw_subnet" {
   }
 }
 
-resource "azurerm_subnet_nat_gateway_association" "ngw_association_gtw" {
-  subnet_id      = azurerm_subnet.gtw_subnet.id
+resource "azurerm_subnet_nat_gateway_association" "agw_association" {
+  subnet_id      = azurerm_subnet.agw_subnet.id
   nat_gateway_id = azurerm_nat_gateway.ngw.id
 }

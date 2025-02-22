@@ -1,0 +1,58 @@
+trigger:
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+- name: terraformVersion
+  value: '1.10.5'
+- name: ansibleVersion
+  value: '2.18.2'
+- group: MyKeyVaultVariables
+
+steps:
+- task: UseTerraform@0
+  inputs:
+    version: $(terraformVersion)
+
+- script: |
+    sudo apt-get update
+    sudo apt-get install -y ansible
+  displayName: 'Install Ansible'
+
+- checkout: self
+
+# Run Ansible playbook
+- script: |
+    ansible-playbook azure/template/playbook.yml --syntax-check
+    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i azure/template/inventory/envs.ini, -e "@azure/template/vars/dev.yaml" azure/template/playbook.yml
+  displayName: 'Run Ansible Playbook'
+
+# Run Terraform commands
+- script: |
+    export ARM_CLIENT_ID=$(ARM_CLIENT_ID)
+    export ARM_CLIENT_SECRET=$(ARM_CLIENT_SECRET)
+    export ARM_SUBSCRIPTION_ID=$(ARM_SUBSCRIPTION_ID)
+    export ARM_TENANT_ID=$(ARM_TENANT_ID)
+
+    terraform init \
+      -backend-config="resource_group_name=dev-resource-group" \
+      -backend-config="storage_account_name=devmyappstorage" \
+      -backend-config="container_name=dev-terraform-state-file" \
+      -backend-config="key=terraform.tfstate"
+    terraform fmt
+    terraform validate
+    terraform plan -out=tfplan
+  workingDirectory: './azure/template/templates'
+  displayName: 'Terraform Init, Format, Validate, Plan'
+  env:
+    ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+    ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+    ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+    ARM_TENANT_ID: $(ARM_TENANT_ID)
+
+# Apply Terraform if the plan was successful
+- script: |
+    terraform apply -auto-approve tfplan
+  workingDirectory: './azure/template/templates'
+  displayName: 'Terraform Apply'

@@ -1,37 +1,30 @@
-name: Dev Creation
+name: Staging Asset Opreate Creation
 
 on:
   push:
     branches:
+      - template-for-dev
   workflow_dispatch:
 
 jobs:
-  render-and-apply:
+  terraform:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Install Ansible
-        run: sudo apt-get update && sudo apt-get install -y ansible
-      
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: latest
       
-      - name: Run Ansible to Render Terraform Template
-        run: |
-          ansible-playbook azure/template/playbook.yml --syntax-check
-          ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i azure/template/inventory/envs.ini, -e "@azure/template/vars/dev.yaml" azure/template/playbook.yml
-      
       - name: Initialize Terraform
-        working-directory: ./azure/template/templates
+        working-directory: ./azure/asset-operate/tf-configuration
         run: |
           terraform init \
-            -backend-config="resource_group_name=dev-resource-group" \
-            -backend-config="storage_account_name=devmyappstorage" \
-            -backend-config="container_name=dev-terraform-state-file" \
+            -backend-config="resource_group_name=asset-operate" \
+            -backend-config="storage_account_name=assetc4e285" \
+            -backend-config="container_name=asset-operate-terraform-state-file" \
             -backend-config="key=terraform.tfstate"
         env:
             ARM_CLIENT_ID: ${{ secrets.DEV_AZURE_CLIENT_ID }}
@@ -40,17 +33,17 @@ jobs:
             ARM_TENANT_ID: ${{ secrets.DEV_AZURE_TENANT_ID }}
       
       - name: Terraform Format Check
-        working-directory: ./azure/template/templates
+        working-directory: ./azure/asset-operate/tf-configuration
         run: |
           terraform fmt
       
       - name: Terraform Validate
-        working-directory: ./azure/template/templates
+        working-directory: ./azure/asset-operate/tf-configuration
         run: |
           terraform validate
 
       - name: Plan Terraform
-        working-directory: ./azure/template/templates
+        working-directory: ./azure/asset-operate/tf-configuration
         run: |
           terraform plan -out=tfplan
         env:
@@ -60,8 +53,8 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.DEV_AZURE_TENANT_ID }}
 
       - name: Apply Terraform
-        # if: github.ref == 'refs/heads/main'
-        working-directory: ./azure/template/templates
+        if: github.ref == 'refs/heads/main'
+        working-directory: ./azure/asset-operate/tf-configuration
         run: |
           terraform apply -auto-approve tfplan
         env:

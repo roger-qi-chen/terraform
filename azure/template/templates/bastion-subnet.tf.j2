@@ -1,4 +1,4 @@
-# Bastion subnet - Zone redundant
+{# # Bastion subnet - Zone redundant
 resource "azurerm_subnet" "bastion_subnet" {
   name                 = "{{ env }}-{{ bastion_subnet_name }}"
   resource_group_name  = data.azurerm_resource_group.rg.name
@@ -18,4 +18,4 @@ resource "azurerm_subnet" "bastion_subnet" {
 resource "azurerm_subnet_nat_gateway_association" "ngw_association_bastion" {
   subnet_id      = azurerm_subnet.bastion_subnet.id
   nat_gateway_id = azurerm_nat_gateway.ngw.id
-}
+} #}

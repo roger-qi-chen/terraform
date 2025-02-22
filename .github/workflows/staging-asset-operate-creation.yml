@@ -1,4 +1,4 @@
-name: Dev Creation
+name: Staging Asset Opreate Creation
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
           terraform_version: latest
       
       - name: Initialize Terraform
-        working-directory: ./azure/template/templates
+        working-directory: ./azure/asset-operate/tf-configuration
         run: |
           terraform init \
             -backend-config="resource_group_name=asset-operate" \
@@ -33,17 +33,17 @@ jobs:
             ARM_TENANT_ID: ${{ secrets.DEV_AZURE_TENANT_ID }}
       
       - name: Terraform Format Check
-        working-directory: ./azure/template/templates
+        working-directory: ./azure/asset-operate/tf-configuration
         run: |
           terraform fmt
       
       - name: Terraform Validate
-        working-directory: ./azure/template/templates
+        working-directory: ./azure/asset-operate/tf-configuration
         run: |
           terraform validate
 
       - name: Plan Terraform
-        working-directory: ./azure/template/templates
+        working-directory: ./azure/asset-operate/tf-configuration
         run: |
           terraform plan -out=tfplan
         env:
@@ -54,7 +54,7 @@ jobs:
 
       - name: Apply Terraform
         if: github.ref == 'refs/heads/main'
-        working-directory: ./azure/template/templates
+        working-directory: ./azure/asset-operate/tf-configuration
         run: |
           terraform apply -auto-approve tfplan
         env:

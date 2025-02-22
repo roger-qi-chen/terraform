@@ -34,14 +34,12 @@ module "vnet" {
   delegated_subnet_name             = var.delegated_subnet_name
   private_link_address_prefixes     = var.private_link_address_prefixes
   delegated_subnet_address_prefixes = var.delegated_subnet_address_prefixes
-
 }
 
 module "blob_container" {
   source = "../tf-modules/blob" # source = "git@github.com:terraform.git/AssetOperate-IaaC/azure/tf-modules/blob"
 
-  resource_group_name     = data.azurerm_resource_group.rg.name
-  resource_group_location = data.azurerm_resource_group.rg.location
+  resource_group_name   = data.azurerm_resource_group.rg.name
 
   env                   = var.env
   storage_account_name  = var.storage_account_name

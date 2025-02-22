@@ -39,8 +39,8 @@ module "vnet" {
 module "blob_container" {
   source = "../tf-modules/blob" # source = "git@github.com:terraform.git/AssetOperate-IaaC/azure/tf-modules/blob"
 
-  resource_group_name   = data.azurerm_resource_group.rg.name
-  storage_account_id    = data.azurerm_storage_account.sa.id
+  resource_group_name = data.azurerm_resource_group.rg.name
+  storage_account_id  = data.azurerm_storage_account.sa.id
 
   env                   = var.env
   blob_container_name   = var.blob_container_name
@@ -65,6 +65,7 @@ module "mssql" {
   source = "../tf-modules/mssql" # source = "git@github.com:terraform.git/AssetOperate-IaaC/azure/tf-modules/app-service"
 
   resource_group_name     = data.azurerm_resource_group.rg.name
+  resource_group_location = data.azurerm_resource_group.rg.location
 
   env                         = var.env
   mssql_server_name           = var.mssql_server_name

@@ -55,7 +55,7 @@ module "app_service" {
 
   env                   = var.env
   app_service_plan_name = var.app_service_plan_name
-  type                  = var.type
+  tier                  = var.tier
   size                  = var.size
   app_service_name      = var.app_service_name
 }

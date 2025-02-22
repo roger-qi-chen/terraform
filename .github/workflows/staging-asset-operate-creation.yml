@@ -3,7 +3,7 @@ name: Staging Asset Opreate Creation
 on:
   push:
     branches:
-      - template-for-dev
+      - add-app-service
   workflow_dispatch:
 
 jobs:

@@ -40,9 +40,22 @@ module "blob_container" {
   source = "../tf-modules/blob" # source = "git@github.com:terraform.git/AssetOperate-IaaC/azure/tf-modules/blob"
 
   resource_group_name   = data.azurerm_resource_group.rg.name
-  storage_account_id  = data.azurerm_storage_account.sa.id
+  storage_account_id    = data.azurerm_storage_account.sa.id
 
   env                   = var.env
   blob_container_name   = var.blob_container_name
   container_access_type = var.container_access_type
+}
+
+module "app_service" {
+  source = "../tf-modules/app-service" # source = "git@github.com:terraform.git/AssetOperate-IaaC/azure/tf-modules/app-service"
+
+  resource_group_name     = data.azurerm_resource_group.rg.name
+  resource_group_location = data.azurerm_resource_group.rg.location
+
+  env                   = var.env
+  app_service_plan_name = var.app_service_plan_name
+  type                  = var.type
+  size                  = var.size
+  app_service_name      = var.app_service_name
 }

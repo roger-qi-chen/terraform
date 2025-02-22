@@ -18,3 +18,9 @@ delegated_subnet_address_prefixes = ["10.0.1.0/24"]
 storage_account_name  = "assetc4e285"
 blob_container_name   = "assetstaging"
 container_access_type = "private"
+
+# App Service
+app_service_plan_name = "ao-web-stg-service-plan"
+tier                  = "Standard"
+size                  = "B1"
+app_service_name      = "ao-web-stg"

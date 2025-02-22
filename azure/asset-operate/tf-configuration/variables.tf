@@ -45,3 +45,20 @@ variable "blob_container_name" {
 variable "container_access_type" {
   type = string
 }
+
+# App Service
+variable "app_service_plan_name" {
+  type = string
+}
+
+variable "tier" {
+  type = string
+}
+
+variable "size" {
+  type = string
+}
+
+variable "app_service_name" {
+  type = string
+}

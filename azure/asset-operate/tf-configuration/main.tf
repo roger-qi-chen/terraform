@@ -53,9 +53,30 @@ module "app_service" {
   resource_group_name     = data.azurerm_resource_group.rg.name
   resource_group_location = data.azurerm_resource_group.rg.location
 
-  env                   = var.env
-  app_service_plan_name = var.app_service_plan_name
-  tier                  = var.tier
-  size                  = var.size
-  app_service_name      = var.app_service_name
+  env                       = var.env
+  app_service_plan_name     = var.app_service_plan_name
+  tier                      = var.tier
+  size                      = var.size
+  frontend_app_service_name = var.frontend_app_service_name
+  backend_app_service_name  = var.backend_app_service_name
+}
+
+module "mssql" {
+  source = "../tf-modules/mssql" # source = "git@github.com:terraform.git/AssetOperate-IaaC/azure/tf-modules/app-service"
+
+  resource_group_name     = data.azurerm_resource_group.rg.name
+
+  env                         = var.env
+  mssql_server_name           = var.mssql_server_name
+  version                     = var.version
+  login                       = var.login
+  password                    = var.password
+  enclave                     = var.enclave
+  mssql_database_name         = var.mssql_database_name
+  collation                   = var.collation
+  license_typy                = var.license_typy
+  max_size                    = var.max_size
+  sku_name                    = var.sku_name
+  min_capacity                = var.min_capacity
+  auto_pause_delay_in_minutes = var.auto_pause_delay_in_minutes
 }

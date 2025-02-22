@@ -9,13 +9,44 @@ resource "azurerm_app_service_plan" "linux" {
   }
 }
 
-resource "azurerm_app_service" "app_service" {
-  name                = var.app_service_name
+# Frontend
+resource "azurerm_app_service" "frontend_app_service" {
+  name                = var.frontend_app_service_name
   location            = var.resource_group_location
   resource_group_name = var.resource_group_name
   app_service_plan_id = azurerm_app_service_plan.linux.id
 
   app_settings = {
     "PORT" = "3000"
+  }
+}
+
+# Backend
+resource "azurerm_app_service" "backend_app_service" {
+  name                = var.backend_app_service_name
+  location            = var.resource_group_location
+  resource_group_name = var.resource_group_name
+  app_service_plan_id = azurerm_app_service_plan.linux.id
+
+  app_settings = {
+    "PORT" = "5000"
+    "DATABASE_URL" = ""
+    "BLOB_CONNECTION_STRING" = ""
+    "ASSETFUTURE_BASE_URL" = ""
+    "ASSETFUTURE_AREAS_URL" = ""
+    "ASSETFUTURE_ITEMS_URL" = ""
+    "ASSETFUTURE_SECRET" = ""
+    "IMPORT_API_SECRET" = ""
+    "JWT_ISSUER" = ""
+    "JWT_AUDIENCE" = ""
+    "JWT_AUDIENCE" = ""
+    "JWT_AUDIENCE" = ""
+    "JWT_AUDIENCE" = ""
+    "JWT_AUDIENCE" = ""
+    "JWT_AUDIENCE" = ""
+    "JWT_AUDIENCE" = ""
+    "JWT_AUDIENCE" = ""
+    "JWT_AUDIENCE" = ""
+
   }
 }

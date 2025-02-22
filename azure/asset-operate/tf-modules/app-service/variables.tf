@@ -24,6 +24,10 @@ variable "size" {
   type = string
 }
 
-variable "app_service_name" {
+variable "frontend_app_service_name" {
+  type = string
+}
+
+variable "backend_app_service_name" {
   type = string
 }

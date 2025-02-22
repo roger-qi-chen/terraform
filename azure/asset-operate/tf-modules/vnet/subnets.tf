@@ -8,7 +8,7 @@ resource "azurerm_subnet" "private_link_subnet" {
 
 resource "azurerm_subnet" "delegated_subnet" {
   name                 = var.delegated_subnet_name
-  resource_group_name  = azurerm_resource_group.rg.name
+  resource_group_name  = var.resource_group_name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = var.delegated_subnet_address_prefixes
 }

@@ -15,5 +15,5 @@ variable "env" {
 }
 
 variable "address_space" {
-  type = string
+  type = list(string)
 }

@@ -40,7 +40,7 @@ module "blob_container" {
   source = "../tf-modules/blob" # source = "git@github.com:terraform.git/AssetOperate-IaaC/azure/tf-modules/blob"
 
   resource_group_name   = data.azurerm_resource_group.rg.name
-  storage_account_name  = data.azurerm_storage_account.name
+  storage_account_name  = data.azurerm_storage_account.sa.name
 
   env                   = var.env
   blob_container_name   = var.blob_container_name

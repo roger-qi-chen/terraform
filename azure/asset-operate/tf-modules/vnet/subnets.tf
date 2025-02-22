@@ -1,10 +1,17 @@
-# # Create subnets
-# resource "azurerm_subnet" "pri_subnet1" {
-#   name                 = "priSubnet1"
-#   resource_group_name  = azurerm_resource_group.rg.name
-#   virtual_network_name = azurerm_virtual_network.vnet.name
-#   address_prefixes     = ["10.0.10.0/24"]
-# }
+# Create subnets
+resource "azurerm_subnet" "private_link_subnet" {
+  name                 = var.private_link_subnet_name
+  resource_group_name  = var.resource_group_name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = var.private_link_address_prefixes
+}
+
+resource "azurerm_subnet" "delegated_subnet" {
+  name                 = var.delegated_subnet_name
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = var.delegated_subnet_address_prefixes
+}
 
 # Create public IPs
 # resource "azurerm_public_ip" "my_terraform_public_ip" {

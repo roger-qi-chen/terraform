@@ -27,9 +27,14 @@ module "vnet" {
   resource_group_name     = data.azurerm_resource_group.rg.name
   resource_group_location = data.azurerm_resource_group.rg.location
 
-  env                  = var.env
-  virtual_network_name = var.virtual_network_name
-  address_space        = var.address_space
+  env                               = var.env
+  virtual_network_name              = var.virtual_network_name
+  address_space                     = var.address_space
+  private_link_subnet_name          = var.private_link_subnet_name
+  delegated_subnet_name             = var.delegated_subnet_name
+  private_link_address_prefixes     = var.private_link_address_prefixes
+  delegated_subnet_address_prefixes = var.delegated_subnet_address_prefixes
+
 }
 
 # module "app-service" {

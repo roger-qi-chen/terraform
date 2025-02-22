@@ -22,9 +22,8 @@ provider "azurerm" {
 }
 
 module "vnet" {
-  # source = "git@github.com:terraform.git/AssetOperate-IaaC/azure/tf-modules/vnet" # 
-  source = "C:/Users/RogerChen/AssetOperate-IaaC/tf-modules/vnet"
-
+  source = "../tf-modules/vnet" # source = "git@github.com:terraform.git/AssetOperate-IaaC/azure/tf-modules/vnet"
+  
   resource_group_name     = data.resourcazurerm_resource_group.rg.name
   resource_group_location = data.resourcazurerm_resource_group.rg.location
 

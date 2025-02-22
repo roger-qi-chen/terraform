@@ -1,5 +1,6 @@
 env                  = "staging"
 resource_group_name  = "asset-operate"
+storage_account_name = "assetc4e285"
 
 # VNet
 virtual_network_name = "assetOperate"

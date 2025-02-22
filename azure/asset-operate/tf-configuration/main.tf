@@ -37,8 +37,12 @@ module "vnet" {
 
 }
 
-# module "app-service" {
-#   # source = "git@github.com:terraform.git//azure/tf-modules/vnet" # 
-#   source = "/Users/roger/terraform/azure/tf-modules/vnet"
-#   env                        = var.env
-# }
+module "blob_container" {
+  source = "../tf-modules/blob" # source = "git@github.com:terraform.git/AssetOperate-IaaC/azure/tf-modules/blob"
+
+  resource_group_name     = data.azurerm_resource_group.rg.name
+  resource_group_location = data.azurerm_resource_group.rg.location
+
+  env                  = var.env
+  storage_account_name = var.storage_account_name
+}

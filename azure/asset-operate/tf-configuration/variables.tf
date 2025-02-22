@@ -4,7 +4,12 @@ variable "env" {
 
 # Resource Group
 variable "resource_group_name" {
-    type = string
+  type = string
+}
+
+# Storage Account
+variable "storage_account_name" {
+  type = string
 }
 
 # VNet

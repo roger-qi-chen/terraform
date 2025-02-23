@@ -82,6 +82,9 @@ module "mssql" {
   auto_pause_delay_in_minutes = var.auto_pause_delay_in_minutes
   vnet_rule1_name             = var.vnet_rule1_name
   vnet_rule2_name             = var.vnet_rule2_name
+
+  private_link_subnet_id      = module.vnet.private_link_subnet_id
+  delegated_subnet_id         = module.vnet.delegated_subnet_id
 }
 
 module "dns" {
@@ -91,4 +94,6 @@ module "dns" {
   env                     = var.env
   domain                  = var.domain      
   dns_zone_vnet_link_name = var.dns_zone_vnet_link_name
+
+  virtual_network_id      = module.vnet.virtual_network_id
 }

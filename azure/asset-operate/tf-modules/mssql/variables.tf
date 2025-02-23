@@ -68,3 +68,11 @@ variable "vnet_rule1_name" {
 variable "vnet_rule2_name" {
   type = string
 }
+
+variable "private_link_subnet_id" {
+  type = string
+}
+
+variable "delegated_subnet_id" {
+  type = string
+}

@@ -15,3 +15,7 @@ variable "domain" {
 variable "dns_zone_vnet_link_name" {
   type = string
 }
+
+variable "virtual_network_id" {
+  type = string
+}

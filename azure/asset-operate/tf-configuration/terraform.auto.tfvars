@@ -39,3 +39,7 @@ license_typy                = var.license_typy
 sku_name                    = "GP_S_Gen5_1"
 min_capacity                = "0.5"
 auto_pause_delay_in_minutes = 60
+
+# DNS
+domain                  = "www.abc.com"        
+dns_zone_vnet_link_name = "ven-link-stg"

@@ -117,3 +117,20 @@ variable "min_capacity" {
 variable "auto_pause_delay_in_minutes" {
   type = string
 }
+
+variable "vnet_rule1_name" {
+  type = string
+}
+
+variable "vnet_rule2_name" {
+  type = string
+}
+
+# DNS
+variable "domain" {
+  type = string
+}
+
+variable "dns_zone_vnet_link_name" {
+  type = string
+}

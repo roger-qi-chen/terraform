@@ -80,4 +80,15 @@ module "mssql" {
   sku_name                    = var.sku_name
   min_capacity                = var.min_capacity
   auto_pause_delay_in_minutes = var.auto_pause_delay_in_minutes
+  vnet_rule1_name             = var.vnet_rule1_name
+  vnet_rule2_name             = var.vnet_rule2_name
+}
+
+module "dns" {
+  source = "../tf-modules/dns" # source = "git@github.com:terraform.git/AssetOperate-IaaC/azure/tf-modules/app-service"
+  resource_group_name     = data.azurerm_resource_group.rg.name
+
+  env                     = var.env
+  domain                  = var.domain      
+  dns_zone_vnet_link_name = var.dns_zone_vnet_link_name
 }

@@ -27,3 +27,15 @@ resource "azurerm_mssql_database" "mssql_database" {
     prevent_destroy = true
   }
 }
+
+resource "azurerm_mssql_virtual_network_rule" "vnet_rule1" {
+  name      = var.vnet_rule1_name # "sql-vnet-rule"
+  server_id = azurerm_mssql_server.mssql_server.id
+  subnet_id = azurerm_subnet.private_link_subnet.id
+}
+
+resource "azurerm_mssql_virtual_network_rule" "vnet_rule2" {
+  name      = var.vnet_rule2_name # "sql-vnet-rule"
+  server_id = azurerm_mssql_server.mssql_server.id
+  subnet_id = azurerm_subnet.delegated_subnet.id
+}

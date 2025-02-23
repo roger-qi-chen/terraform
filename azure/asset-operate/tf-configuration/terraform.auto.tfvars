@@ -28,7 +28,7 @@ backend_app_service_name  = "ao-back-stg"
 
 # MSSQL
 mssql_server_name           = "AssetOperateSQL"
-version                     = "12.0"
+mssql_server_version        = "12.0"
 login                       = ""
 password                    = ""
 enclave                     = var.enclave

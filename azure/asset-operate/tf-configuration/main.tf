@@ -69,7 +69,7 @@ module "mssql" {
 
   env                         = var.env
   mssql_server_name           = var.mssql_server_name
-  version                     = var.version
+  mssql_server_version        = var.mssql_server_version
   login                       = var.login
   password                    = var.password
   enclave                     = var.enclave

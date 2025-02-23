@@ -73,7 +73,7 @@ variable "mssql_server_name" {
   type = string
 }
 
-variable "version" {
+variable "mssql_server_version" {
   type = string
 }
 

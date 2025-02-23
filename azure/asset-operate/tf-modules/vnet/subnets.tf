@@ -12,3 +12,11 @@ resource "azurerm_subnet" "delegated_subnet" {
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = var.delegated_subnet_address_prefixes
 }
+
+output "private_link_subnet_id" {
+  value = azurerm_subnet.private_link_subnet.id
+}
+
+output "delegated_subnet_id" {
+  value = azurerm_subnet.delegated_subnet.id
+}

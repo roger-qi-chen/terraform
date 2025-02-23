@@ -39,14 +39,10 @@ resource "azurerm_app_service" "backend_app_service" {
     "IMPORT_API_SECRET" = ""
     "JWT_ISSUER" = ""
     "JWT_AUDIENCE" = ""
-    "JWT_AUDIENCE" = ""
-    "JWT_AUDIENCE" = ""
-    "JWT_AUDIENCE" = ""
-    "JWT_AUDIENCE" = ""
-    "JWT_AUDIENCE" = ""
-    "JWT_AUDIENCE" = ""
-    "JWT_AUDIENCE" = ""
-    "JWT_AUDIENCE" = ""
-
+    "JWT_KEY" = ""
+    "PASSWORD_SALT" = ""
+    "ASPNETCORE_ENVIRONMENT" = ""
+    "OPERATOR_ID_CLAIM_NAME" = ""
+    "USERNAME_CLAIM_NAME" = ""
   }
 }

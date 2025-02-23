@@ -76,7 +76,7 @@ module "mssql" {
   mssql_database_name         = var.mssql_database_name
   collation                   = var.collation
   license_typy                = var.license_typy
-  max_size                    = var.max_size
+  # max_size                    = var.max_size
   sku_name                    = var.sku_name
   min_capacity                = var.min_capacity
   auto_pause_delay_in_minutes = var.auto_pause_delay_in_minutes

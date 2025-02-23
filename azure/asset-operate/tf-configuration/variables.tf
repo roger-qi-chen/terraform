@@ -98,9 +98,9 @@ variable "license_typy" {
   type = string
 }
 
-variable "max_size" {
-  type = string
-}
+# variable "max_size" {
+#   type = string
+# }
 
 variable "sku_name" {
   type = string

@@ -39,6 +39,8 @@ license_typy                = var.license_typy
 sku_name                    = "GP_S_Gen5_1"
 min_capacity                = "0.5"
 auto_pause_delay_in_minutes = 60
+vnet_rule1_name             = "vnet_rule1"
+vnet_rule2_name             = "vnet_rule2"
 
 # DNS
 domain                  = "www.abc.com"        

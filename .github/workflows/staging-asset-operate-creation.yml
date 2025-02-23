@@ -21,6 +21,7 @@ jobs:
       - name: Initialize Terraform
         working-directory: ./azure/asset-operate/tf-configuration
         run: |
+          terraform force-unlock 8f3b29c2-582d-a07a-3597-cdfa85982a52
           terraform init \
             -backend-config="resource_group_name=asset-operate" \
             -backend-config="storage_account_name=assetc4e285" \

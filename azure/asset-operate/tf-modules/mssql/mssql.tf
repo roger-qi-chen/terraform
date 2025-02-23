@@ -13,7 +13,7 @@ resource "azurerm_mssql_database" "mssql_database" {
   # collation                 = var.collation # "SQL_Latin1_General_CP1_CI_AS"
   # license_type              = var.license_typy # "LicenseIncluded"
   # max_size_gb               = var.max_size # 2
-  sku_name                    = var.sku_name "S0"
+  sku_name                    = var.sku_name # "S0"
   # enclave_type              = var.enclave # "VBS"
   min_capacity                = var.min_capacity
   auto_pause_delay_in_minutes = var.auto_pause_delay_in_minutes 

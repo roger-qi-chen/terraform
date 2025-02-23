@@ -19,7 +19,6 @@ jobs:
           terraform_version: latest
       
       - name: Initialize Terraform
-        working-directory: ./azure/asset-operate/tf-configuration
         run: |
           terraform force-unlock 1a95d384-46ec-028c-2c9c-c4975b007961
           terraform init \

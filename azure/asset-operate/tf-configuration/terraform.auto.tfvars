@@ -27,7 +27,7 @@ frontend_app_service_name = "ao-web-stg"
 backend_app_service_name  = "ao-back-stg"
 
 # MSSQL
-mssql_server_name           = "AssetOperateSQL"
+mssql_server_name           = "asset-operate-sql"
 mssql_server_version        = "12.0"
 login                       = ""
 password                    = ""
